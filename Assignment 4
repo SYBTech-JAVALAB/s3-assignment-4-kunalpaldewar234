@@ -1,0 +1,76 @@
+package kunal;
+
+abstract class Bank_Account {
+    double balance;
+
+    Bank_Account(double balance) {
+        this.balance = balance;
+    }
+
+    abstract void deposit(double amount);
+    abstract void withdraw(double amount);
+
+    void displayBalance() {
+        System.out.println("Current Balance: ₹" + balance);
+    }
+}
+
+class Savings_Account extends Bank_Account {
+
+    Savings_Account(double balance) {
+        super(balance);
+    }
+
+    void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited ₹" + amount + " in Savings Account");
+    }
+
+    void withdraw(double amount) {
+        if (balance - amount >= 1000) {
+            balance -= amount;
+            System.out.println("Withdrawn ₹" + amount + " from Savings Account");
+        } else {
+            System.out.println("Withdrawal denied! Minimum balance ₹1000 required.");
+        }
+    }
+}
+
+class Current_Account extends Bank_Account {
+
+    Current_Account(double balance) {
+        super(balance);
+    }
+
+    void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited ₹" + amount + " in Current Account");
+    }
+
+    void withdraw(double amount) {
+        if (balance - amount >= -5000) {
+            balance -= amount;
+            System.out.println("Withdrawn ₹" + amount + " from Current Account");
+        } else {
+            System.out.println("Overdraft limit exceeded! Maximum overdraft ₹5000.");
+        }
+    }
+}
+
+public class BankDemo {
+
+    public static void main(String[] args) {
+
+        Savings_Account sa = new Savings_Account(5000);
+        sa.deposit(2000);
+        sa.withdraw(4500);
+        sa.displayBalance();
+
+        System.out.println();
+
+        Current_Account ca = new Current_Account(3000);
+        ca.deposit(1000);
+        ca.withdraw(7000);
+        ca.displayBalance();
+    }
+}
